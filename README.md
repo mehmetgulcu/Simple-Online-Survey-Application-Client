@@ -92,4 +92,8 @@ http://localhost:4200 adresinden uygulamayı açabilirsiniz.
 Bu proje, basit bir online anket uygulaması olarak tasarlanmıştır ve Angular ile backend entegrasyonu konusunda temel bir anlayış sunmaktadır.
 
 ## Proje Görselleri
-![Uygulama Görseli]()
+![Login Sayfası](https://github.com/mehmetgulcu/Simple-Online-Survey-Application-Client/blob/main/assets/login.PNG)
+![Kayıt Sayfası](https://github.com/mehmetgulcu/Simple-Online-Survey-Application-Client/blob/main/assets/register.PNG)
+![Dashboard Sayfası](https://github.com/mehmetgulcu/Simple-Online-Survey-Application-Client/blob/main/assets/dashboard.PNG)
+![Anket Detay ve Oylama Sayfası](https://github.com/mehmetgulcu/Simple-Online-Survey-Application-Client/blob/main/assets/poll-detail.PNG)
+![Anket Oluşturma Sayfası](https://github.com/mehmetgulcu/Simple-Online-Survey-Application-Client/blob/main/assets/create-poll.PNG)
