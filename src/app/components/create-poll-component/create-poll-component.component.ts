@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { NavbarComponent } from "../../navbar/navbar.component";
 
 @Component({
   selector: 'app-create-poll',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NavbarComponent],
   template: `
+  <app-navbar></app-navbar>
     <div class="container mt-5">
       <h2>Yeni Anket Oluştur</h2>
       <form (ngSubmit)="createPoll()">

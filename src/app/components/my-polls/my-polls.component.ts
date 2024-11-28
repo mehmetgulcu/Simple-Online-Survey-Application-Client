@@ -3,12 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from "../../navbar/navbar.component";
 
 @Component({
   selector: 'app-my-polls',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   template: `
+    <app-navbar></app-navbar>
     <div class="container mt-5">
       <h2>Oluşturduğunuz Anketler</h2>
 

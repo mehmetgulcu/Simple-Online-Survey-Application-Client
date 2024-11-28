@@ -1,59 +1,95 @@
-# OnlineSurvey
+# Angular Uygulaması - Basit Online Anket Uygulaması
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+## Açıklama
 
-## Development server
+Bu Angular uygulaması, kullanıcıların anketler oluşturabileceği, mevcut anketlere oy verebileceği ve kendi oluşturdukları anketleri görüntüleyebileceği basit bir platformdur. Uygulama, JWT (JSON Web Token) ile kimlik doğrulama ve yetkilendirme kullanmaktadır. Kullanıcılar, giriş yaparak anketlere erişebilir, yeni anketler oluşturabilir ve kendi oluşturdukları anketleri yönetebilir.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## Uygulamanın Bileşenleri
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### **AppComponent**
+Uygulamanın kök bileşenidir ve şu temel işlevleri yerine getirir:
+- **Yönlendirme (Routing)**: Uygulamanın yönlendirme mekanizmasını yapılandırır ve kullanıcıların login, kayıt, anket oluşturma ve anket detaylarını görmelerini sağlar.
+- **HTTP Client**: Angular’ın `HttpClient` servisini kullanarak, backend sunucusuyla iletişim kurar. Bu servis, anket verilerini almayı (anketler, kullanıcı bilgileri) ve sunucuya veri göndermeyi (giriş, kayıt, anket oluşturma, oy verme) sağlar.
+- **Authentication Interceptors**: `AuthInterceptor` yapılandırılır ve HTTP isteği ile birlikte JWT token'ı otomatik olarak ekler, böylece korunan kaynaklara yetkilendirilmiş erişim sağlanır.
+- **Toastr Entegrasyonu (Opsiyonel)**: Kullanıcıya bilgilendirici mesajlar sunmak için `Toastr` kütüphanesi kullanılabilir. Örneğin, giriş başarısı, kayıt tamamlanması ve oy verme sonuçları hakkında bilgilendirme yapılabilir.
 
-## Code scaffolding
+### **LoginComponent**
+Kullanıcı girişini yönetir:
+- **Giriş Formu**: Kullanıcıların e-posta ve şifre bilgilerini girmesine olanak tanır.
+- **Giriş Butonu**: Bu butona tıklanarak giriş işlemi başlatılır.
+- **Form Doğrulama**: Kullanıcıların geçerli e-posta ve şifre formatları girmeleri sağlanır.
+- **Authentication Service**: Bu bileşen, giriş için sunucuya istek gönderir ve sunucudan gelen yanıtı işler. Başarılı girişte, JWT token'ı yerel depolamaya kaydedilir.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### **RegisterComponent**
+Yeni kullanıcı kayıt işlemini yönetir:
+- **Kayıt Formu**: E-posta ve şifre gibi kullanıcı bilgilerini alır.
+- **Kayıt Butonu**: Bu butona tıklanarak kayıt işlemi başlatılır.
+- **Form Doğrulama**: Güçlü şifre politikaları ve geçerli e-posta formatları doğrulanır.
+- **Kayıt Servisi**: Kayıt bilgileri sunucuya gönderilir ve kullanıcı hesabı oluşturulur.
 
-```bash
-ng generate component component-name
-```
+### **DashboardComponent**
+Giriş yapmış kullanıcılar için merkezi bir hub görevi görür:
+- **Anketler Listesi**: Kullanıcının JWT token'ı ile sunucudan alınan anketler listelenir. Yalnızca kimliği doğrulanmış kullanıcılar erişebilir.
+- **Navigasyon**: Kullanıcılara yeni anket oluşturma ve mevcut anketleri görüntüleme gibi seçenekler sunar.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### **CreatePollComponent**
+Kullanıcıların yeni anket oluşturmasını sağlar:
+- **Anket Başlığı Girişi**: Kullanıcıların anket başlıklarını girmesine olanak tanır.
+- **Seçenek Girişi**: Anket seçeneklerini belirlemek için birden fazla giriş alanı içerir.
+- **Anket Oluştur Butonu**: Bu butona tıklanarak yeni anket sunucuya gönderilir.
+- **Hata Yönetimi**: Anket oluşturulurken herhangi bir hata oluşursa kullanıcıya geri bildirim verilir.
 
-```bash
-ng generate --help
-```
+### **MyPollsComponent**
+Kullanıcıların oluşturduğu anketleri görüntüler:
+- **Yetkilendirilmiş Kullanıcı Kontrolü**: Yalnızca giriş yapmış kullanıcılar bu bileşene erişebilir.
+- **Oluşturulan Anketler Listesi**: Kullanıcıların oluşturduğu anketler listelenir ve JWT token'ı ile sunucudan alınır.
 
-## Building
+### **PollDetailComponent**
+Bir anketin detaylarını görüntüler:
+- **Anket Bilgisi**: Anket başlığı, seçenekler ve her bir seçenek için oy sayıları gibi bilgileri gösterir.
+- **Oy Verme Fonksiyonu (Opsiyonel)**: Kullanıcılar, aktif anketlere oy verebilir. Oy verme işlemi sunucuya gönderilir ve JWT token ile yetkilendirilir.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## Kimlik Doğrulama ve Yetkilendirme:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Uygulama, JWT (JSON Web Token) kullanarak kimlik doğrulama işlemlerini gerçekleştirir. JWT, sunucu ve istemci arasında güvenli bir şekilde kullanıcı bilgilerini taşıyan bir yapıdır.
 
-## Running unit tests
+1. **Giriş İşlemi**: Kullanıcılar, LoginComponent üzerinden e-posta ve şifre bilgilerini sunucuya gönderir.
+2. **JWT Token**: Sunucu, kullanıcının kimliğini doğruladıktan sonra bir JWT token'ı oluşturur. Bu token, kullanıcı bilgilerini ve gizli bir anahtarı içerir ve istemciye gönderilir.
+3. **Token Depolama**: İstemci, JWT token'ını yerel depolama (localStorage) içinde saklar.
+4. **İleri Seviye İstekler**: Gelecekteki tüm korunan kaynaklara yapılacak isteklerde, istemci bu token'ı başlık olarak ekler. Bu, kullanıcının yetkilendirilmiş olduğunun doğrulanmasını sağlar.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## Potansiyel Geliştirmeler:
 
-## Running end-to-end tests
+1. **Form Validasyonu**: Daha güçlü form doğrulama kuralları ekleyerek, kullanıcı hatalarını azaltabiliriz.
+2. **Error Handling**: Hata mesajlarını kullanıcı dostu hale getirerek kullanıcı deneyimini geliştirebiliriz.
+3. **Oy Verme**: Kullanıcıların bir anketi yalnızca bir kez oylayabilmesi için ek kontroller ve geri bildirimler ekleyebiliriz.
+4. **Toastr Entegrasyonu**: Toastr kullanarak daha etkili bildirimler ve hata mesajları gösterebiliriz.
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## Kurulum ve Başlatma:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+1. **Proje Klasörüne Git**:
+   ```bash
+   cd /path/to/project
+2. **Gerekli Bağımlılıkları Yükleyin**:
 
-## Additional Resources
+   ```bash
+   npm install
+3. **Uygulamayı Çalıştırın**:
+   ```bash
+   ng serve
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+4. Uygulamayı Tarayıcıda Görüntüleyin
+http://localhost:4200 adresinden uygulamayı açabilirsiniz.
+
+Bu proje, basit bir online anket uygulaması olarak tasarlanmıştır ve Angular ile backend entegrasyonu konusunda temel bir anlayış sunmaktadır.
+
+## Proje Görselleri
+![Uygulama Görseli]()

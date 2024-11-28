@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Chart } from 'chart.js/auto';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from "../../navbar/navbar.component";
 
 @Component({
   selector: 'app-poll-detail',
@@ -14,8 +15,10 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     RouterModule,
     FormsModule,
-  ],
+    NavbarComponent
+],
   template: `
+    <app-navbar></app-navbar>
     <div class="container mt-5">
 
       <h2>{{ poll?.title }}</h2>

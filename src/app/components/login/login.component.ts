@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr'; // Import ToastrService
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule],
   template: `
+  
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
       <div class="card" style="width: 100%; max-width: 400px;">
         <div class="card-body">
@@ -62,14 +63,11 @@ export class LoginComponent {
 
     this.http.post('http://localhost:5126/api/Auth/login', payload).subscribe({
       next: (response: any) => {
-        // Token'ı al ve localStorage'a kaydet
         localStorage.setItem('jwtToken', response.token);
-        // Dashboard'a yönlendir
         this.toastr.success('Giriş başarılı!', 'Başarılı', { positionClass: 'toast-top-right' });
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        // Hata mesajını göster
         this.toastr.error('Giriş başarısız! Lütfen bilgilerinizi kontrol edin.', 'Hata', {
           positionClass: 'toast-top-right',
         });
@@ -79,7 +77,6 @@ export class LoginComponent {
   }
 
   goToRegister() {
-    // Kaydol sayfasına yönlendir
     this.router.navigate(['/register']);
   }
 }

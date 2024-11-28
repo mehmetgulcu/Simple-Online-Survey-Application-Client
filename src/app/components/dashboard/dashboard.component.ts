@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from "../../navbar/navbar.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NavbarComponent],
   template: `
-
+<app-navbar></app-navbar>
     <div class="container mt-5">
       <h2>Anket Listesi</h2>
       <div *ngIf="polls.length === 0" class="alert alert-info">Anket yükleniyor...</div>
@@ -33,7 +34,7 @@ import { RouterModule } from '@angular/router';
 export class DashboardComponent implements OnInit {
   polls: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.loadPolls();
