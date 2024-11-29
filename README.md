@@ -64,15 +64,6 @@ Uygulama, JWT (JSON Web Token) kullanarak kimlik doğrulama işlemlerini gerçek
 
 ---
 
-## Potansiyel Geliştirmeler:
-
-1. **Form Validasyonu**: Daha güçlü form doğrulama kuralları ekleyerek, kullanıcı hatalarını azaltabiliriz.
-2. **Error Handling**: Hata mesajlarını kullanıcı dostu hale getirerek kullanıcı deneyimini geliştirebiliriz.
-3. **Oy Verme**: Kullanıcıların bir anketi yalnızca bir kez oylayabilmesi için ek kontroller ve geri bildirimler ekleyebiliriz.
-4. **Toastr Entegrasyonu**: Toastr kullanarak daha etkili bildirimler ve hata mesajları gösterebiliriz.
-
----
-
 ## Kurulum ve Başlatma:
 
 1. **Proje Klasörüne Git**:
